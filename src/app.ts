@@ -1,7 +1,7 @@
 import express, { Request, Response, Express } from "express";
 
 /**
- * Interface representing a customer.
+ * Interface representing an customer.
  */
 interface Customer {
     id: number;
