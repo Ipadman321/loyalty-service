@@ -61,6 +61,19 @@ app.get("/api/customers/:id", (req: Request, res: Response): void => {
 });
 
 /**
+ * Retrieve all customers in the system.
+ * @route GET /api/customers
+ * @param req - Express request object
+ * @param res - Express response object
+ */
+app.get("/api/customers", (req: Request, res: Response): void => {
+    res.json({
+        count: customers.length,
+        customers: customers,
+    });
+});
+
+/**
  * Record a purchase for a customer and update status based on points.
  * @route POST /api/customers/:id/purchase
  * @param req - Express request object
