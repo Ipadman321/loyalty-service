@@ -93,6 +93,14 @@ app.post("/api/customers/:id/purchase", (req: Request, res: Response): void => {
         customer.lastStatusChange = new Date().toISOString();
     }
 
+    const basePoints = customer.points;
+    switch (customer.status) {
+        case "PLATINUM":
+            basePoints * 2; //Platinum users gain 2x points on every purchase.
+        case "GOLD":
+            basePoints * 1.2 //Gold users gain 1.2x points on every purchase.
+    }
+
     res.json(customer);
 });
 
