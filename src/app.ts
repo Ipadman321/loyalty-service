@@ -6,7 +6,7 @@ import express, { Request, Response, Express } from "express";
 interface Customer {
     id: number;
     name: string;
-    status: "GOLD" | "SILVER" | "BRONZE";
+    status: "PLATINUM" | "GOLD" | "SILVER" | "BRONZE"; //Added new Platinum status to the default interface for users.
     points: number;
     lastPurchaseDate: string;
     email?: string;
