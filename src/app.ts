@@ -1,7 +1,7 @@
 import express, { Request, Response, Express } from "express";
 
 /**
- * Interface representing an customer.
+ * Interface representing a customer.
  */
 interface Customer {
     id: number;
@@ -58,6 +58,19 @@ app.get("/api/customers/:id", (req: Request, res: Response): void => {
     } else {
         res.status(404).send("Customer not found");
     }
+});
+
+/**
+ * Retrieve all customers in the system.
+ * @route GET /api/customers
+ * @param req - Express request object
+ * @param res - Express response object
+ */
+app.get("/api/customers", (req: Request, res: Response): void => {
+    res.json({
+        count: customers.length,
+        customers: customers,
+    });
 });
 
 /**
