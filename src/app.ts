@@ -6,7 +6,7 @@ import express, { Request, Response, Express } from "express";
 interface Customer {
     id: number;
     name: string;
-    status: "GOLD" | "SILVER" | "BRONZE";
+    status: "PLATINUM" | "GOLD" | "SILVER" | "BRONZE"; //Added new Platinum status to the default interface for users.
     points: number;
     lastPurchaseDate: string;
     email?: string;
@@ -82,12 +82,23 @@ app.post("/api/customers/:id/purchase", (req: Request, res: Response): void => {
     customer.points += Math.floor(purchaseAmount / 10);
     customer.lastPurchaseDate = new Date().toISOString();
 
-    if (customer.points >= 750) {
+    if (customer.points >= 1000) { //Added new section for platinum users.
+        customer.status = "PLATINUM";
+        customer.lastStatusChange = new Date().toISOString();
+    } else if (customer.points >= 750) { 
         customer.status = "GOLD";
         customer.lastStatusChange = new Date().toISOString();
     } else if (customer.points >= 500) {
         customer.status = "SILVER";
         customer.lastStatusChange = new Date().toISOString();
+    }
+
+    const basePoints = customer.points;
+    switch (customer.status) {
+        case "PLATINUM":
+            basePoints * 2; //Platinum users gain 2x points on every purchase.
+        case "GOLD":
+            basePoints * 1.2 //Gold users gain 1.2x points on every purchase.
     }
 
     res.json(customer);
